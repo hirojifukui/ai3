@@ -5,12 +5,13 @@ from app.forms import (UploadForm, ResultForm)
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import numpy as np
-#from keras_preprocessing import image
 from keras.utils import load_img, img_to_array
-from keras.models import load_model
-#from PIL import Image
+from keras.saving import load_model
+#from keras.models import load_model
 
-model_s = load_model("app/static/model/mnist_Adam2_20210516.h5")
+#model_s = load_model("app/static/model/my_minist_model.keras")
+#model_s = load_model("app/static/model/mnist_Adam2_20210516.h5")
+model_s = load_model("app/static/model/mnist_202311.h5")
 path = ""; secure_files = []
 	
 def allowed_file(filename):
@@ -22,8 +23,8 @@ def evaluate_img(path):
     # if white_bg:
     #     img = Image.fromarray(np.invert(img))
     x = img_to_array(img)
-    if np.average(x)-128 > 0:
-        x = 255 - x
+    # if np.average(x)-128 > 0:
+    #     x = 255 - x
     x /= 255
     x = np.expand_dims(x, axis=0)
     y_proba = model_s.predict(x)
